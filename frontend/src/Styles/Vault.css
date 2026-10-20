@@ -1,0 +1,761 @@
+/* ================================
+   GLOBAL
+================================ */
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: Inter, Arial, sans-serif;
+  background: #f5f7fb;
+  color: #172033;
+}
+
+button,
+input,
+select {
+  font: inherit;
+}
+
+button {
+  cursor: pointer;
+}
+
+/* ================================
+   VAULT PAGE
+================================ */
+
+.vault-page {
+  min-height: 100vh;
+  display: flex;
+  background: #f5f7fb;
+}
+
+/* ================================
+   SIDEBAR
+================================ */
+
+.sidebar {
+  width: 250px;
+  min-height: 100vh;
+  background: #111827;
+  color: white;
+  padding: 28px 18px;
+  display: flex;
+  flex-direction: column;
+  position: sticky;
+  top: 0;
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 0 10px 35px;
+}
+
+.brand-icon {
+  width: 42px;
+  height: 42px;
+  border-radius: 12px;
+  background: #2563eb;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 21px;
+}
+
+.brand h2 {
+  margin: 0;
+  font-size: 18px;
+}
+
+.brand span {
+  font-size: 11px;
+  color: #9ca3af;
+}
+
+.sidebar nav {
+  display: flex;
+  flex-direction: column;
+}
+
+.nav-item {
+  padding: 13px 14px;
+  border-radius: 10px;
+  margin-bottom: 8px;
+  color: #cbd5e1;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  transition: 0.2s;
+  user-select: none;
+}
+
+.nav-item:hover {
+  background: #1e293b;
+  color: white;
+}
+
+.nav-item.active {
+  background: #2563eb;
+  color: white;
+  box-shadow: 0 4px 12px rgba(37, 99, 235, 0.25);
+}
+
+.security-box {
+  margin-top: auto;
+  padding: 16px;
+  background: #1e293b;
+  border-radius: 14px;
+}
+
+.security-box strong {
+  display: block;
+  margin-top: 7px;
+  font-size: 13px;
+}
+
+.security-box p {
+  margin: 5px 0 0;
+  color: #94a3b8;
+  font-size: 11px;
+}
+
+/* ================================
+   MAIN
+================================ */
+
+.main-content {
+  flex: 1;
+  padding: 35px 45px;
+  max-width: 1500px;
+  width: 100%;
+}
+
+.topbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.welcome-small {
+  color: #64748b;
+  margin: 0 0 5px;
+  font-size: 13px;
+}
+
+.topbar h1 {
+  margin: 0;
+  font-size: 29px;
+  color: #111827;
+}
+
+.logout-btn {
+  border: 1px solid #e2e8f0;
+  background: white;
+  padding: 10px 18px;
+  border-radius: 9px;
+  color: #334155;
+  font-weight: 600;
+  transition: 0.2s;
+}
+
+.logout-btn:hover {
+  background: #fee2e2;
+  color: #dc2626;
+  border-color: #fecaca;
+}
+
+/* ================================
+   STATS
+================================ */
+
+.stats {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 18px;
+  margin: 30px 0;
+}
+
+.stat-card {
+  background: white;
+  border: 1px solid #e8edf4;
+  border-radius: 16px;
+  padding: 20px;
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  box-shadow: 0 4px 15px rgba(15, 23, 42, 0.03);
+}
+
+.stat-icon {
+  width: 45px;
+  height: 45px;
+  background: #eff6ff;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 20px;
+}
+
+.stat-card p {
+  margin: 0 0 4px;
+  color: #64748b;
+  font-size: 12px;
+}
+
+.stat-card h2 {
+  margin: 0;
+  color: #111827;
+}
+
+/* ================================
+   FORM / SECTIONS
+================================ */
+
+.credential-form {
+  background: white;
+  border: 1px solid #e8edf4;
+  border-radius: 18px;
+  padding: 25px;
+  margin-bottom: 30px;
+  box-shadow: 0 4px 18px rgba(15, 23, 42, 0.03);
+}
+
+.section-label {
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 1.4px;
+  color: #2563eb;
+}
+
+.section-heading h2,
+.saved-header h2 {
+  margin: 5px 0 22px;
+  font-size: 20px;
+  color: #111827;
+}
+
+.section-heading p {
+  color: #64748b;
+  font-size: 13px;
+  line-height: 1.6;
+}
+
+/* ================================
+   FORM GRID
+================================ */
+
+.form-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 18px;
+}
+
+.input-group label {
+  display: block;
+  font-size: 12px;
+  font-weight: 600;
+  margin-bottom: 7px;
+  color: #334155;
+}
+
+.input-group input,
+.input-group select {
+  width: 100%;
+  padding: 12px 13px;
+  border: 1px solid #dbe2ea;
+  border-radius: 9px;
+  outline: none;
+  background: #fafbfc;
+  color: #172033;
+  transition: 0.2s;
+}
+
+.input-group input:focus,
+.input-group select:focus {
+  border-color: #2563eb;
+  background: white;
+  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.08);
+}
+
+/* ================================
+   PASSWORD
+================================ */
+
+.password-input-wrapper {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.password-input-wrapper input {
+  flex: 1;
+}
+
+.password-input-wrapper button {
+  border: 1px solid #dbe2ea;
+  background: #f8fafc;
+  padding: 9px 12px;
+  border-radius: 8px;
+  font-size: 12px;
+  color: #334155;
+}
+
+.password-input-wrapper button:hover {
+  background: #eff6ff;
+  color: #2563eb;
+}
+
+.input-group small {
+  display: block;
+  margin-top: 7px;
+  font-size: 11px;
+  color: #64748b;
+}
+
+/* ================================
+   BUTTONS
+================================ */
+
+.form-actions {
+  display: flex;
+  gap: 10px;
+  margin-top: 22px;
+  align-items: center;
+}
+
+.primary-btn,
+.generate-btn,
+.cancel-btn {
+  border: none;
+  padding: 11px 17px;
+  border-radius: 9px;
+  font-weight: 600;
+  transition: 0.2s;
+}
+
+.primary-btn {
+  background: #2563eb;
+  color: white;
+  box-shadow: 0 3px 8px rgba(37, 99, 235, 0.2);
+}
+
+.primary-btn:hover {
+  background: #1d4ed8;
+  transform: translateY(-1px);
+}
+
+.generate-btn {
+  background: #eff6ff;
+  color: #1d4ed8;
+}
+
+.generate-btn:hover {
+  background: #dbeafe;
+}
+
+.cancel-btn {
+  background: #f1f5f9;
+  color: #475569;
+}
+
+.cancel-btn:hover {
+  background: #e2e8f0;
+}
+
+/* ================================
+   MESSAGE
+================================ */
+
+.message {
+  margin-top: 15px;
+  padding: 11px 14px;
+  background: #f0fdf4;
+  color: #15803d;
+  border: 1px solid #bbf7d0;
+  border-radius: 9px;
+  font-size: 13px;
+  font-weight: 500;
+}
+
+/* ================================
+   SAVED SECTION
+================================ */
+
+.saved-section {
+  margin-top: 35px;
+  margin-bottom: 30px;
+}
+
+.saved-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 18px;
+}
+
+.saved-header h2 {
+  margin-bottom: 0;
+}
+
+/* ================================
+   SEARCH
+================================ */
+
+.search-input {
+  background: white;
+  border: 1px solid #e2e8f0;
+  border-radius: 10px;
+  padding: 10px 13px;
+  width: 230px;
+  outline: none;
+}
+
+.search-input:focus {
+  border-color: #2563eb;
+}
+
+/* ================================
+   SEARCH BOX
+================================ */
+
+.search-box {
+  background: white;
+  border: 1px solid #e2e8f0;
+  border-radius: 10px;
+  padding: 9px 12px;
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+
+.search-box input {
+  border: none;
+  outline: none;
+  width: 220px;
+}
+
+/* ================================
+   CREDENTIAL LIST
+================================ */
+
+.credential-list {
+  display: flex;
+  flex-direction: column;
+  gap: 13px;
+}
+
+.credential-card {
+  background: white;
+  border: 1px solid #e8edf4;
+  border-radius: 15px;
+  padding: 18px;
+  display: flex;
+  align-items: center;
+  gap: 17px;
+  transition: 0.2s;
+  box-shadow: 0 3px 12px rgba(15, 23, 42, 0.025);
+}
+
+.credential-card:hover {
+  border-color: #bfdbfe;
+  transform: translateY(-1px);
+  box-shadow: 0 7px 20px rgba(37, 99, 235, 0.08);
+}
+
+.credential-logo {
+  width: 48px;
+  height: 48px;
+  min-width: 48px;
+  border-radius: 13px;
+  background: #eff6ff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 21px;
+}
+
+.credential-info {
+  flex: 1;
+}
+
+.credential-info h3 {
+  margin: 0 0 5px;
+  font-size: 16px;
+  color: #111827;
+}
+
+.credential-info p {
+  margin: 0 0 6px;
+  color: #64748b;
+  font-size: 12px;
+}
+
+/* ================================
+   CARD ACTIONS
+================================ */
+
+.card-actions {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+
+.card-actions button {
+  border: none;
+  padding: 9px 13px;
+  border-radius: 8px;
+  font-size: 12px;
+  font-weight: 600;
+  transition: 0.2s;
+}
+
+/* EDIT */
+
+.edit-btn {
+  background: #eff6ff;
+  color: #1d4ed8;
+  border: 1px solid #dbeafe !important;
+}
+
+.edit-btn:hover {
+  background: #dbeafe;
+  color: #1e40af;
+  transform: translateY(-1px);
+}
+
+/* DELETE */
+
+.delete-btn {
+  background: #fef2f2;
+  color: #dc2626;
+  border: 1px solid #fecaca !important;
+}
+
+.delete-btn:hover {
+  background: #fee2e2;
+  color: #b91c1c;
+  transform: translateY(-1px);
+}
+
+/* SHARE */
+
+.share-btn {
+  background: #f0fdf4;
+  color: #15803d;
+  border: 1px solid #bbf7d0 !important;
+}
+
+.share-btn:hover {
+  background: #dcfce7;
+  color: #166534;
+  transform: translateY(-1px);
+}
+
+/* ================================
+   SHARING BUTTON
+================================ */
+
+.share-action-btn {
+  border: none;
+  background: #2563eb;
+  color: white;
+  padding: 10px 17px;
+  border-radius: 9px;
+  font-size: 12px;
+  font-weight: 600;
+  transition: 0.2s;
+  box-shadow: 0 3px 8px rgba(37, 99, 235, 0.2);
+}
+
+.share-action-btn:hover {
+  background: #1d4ed8;
+  transform: translateY(-1px);
+}
+
+/* ================================
+   SECURITY BADGE
+================================ */
+
+.security-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 8px 12px;
+  border-radius: 8px;
+  background: #f8fafc;
+  color: #475569;
+  border: 1px solid #e2e8f0;
+  font-size: 12px;
+  font-weight: 600;
+}
+
+/* ================================
+   PASSWORD ROW
+================================ */
+
+.password-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-family: monospace;
+  font-size: 13px;
+}
+
+.password-row button {
+  border: none;
+  background: transparent;
+  padding: 3px;
+}
+
+/* ================================
+   EMPTY STATE
+================================ */
+
+.empty-state {
+  background: white;
+  border: 1px dashed #cbd5e1;
+  border-radius: 16px;
+  padding: 55px 20px;
+  text-align: center;
+}
+
+.empty-icon {
+  font-size: 38px;
+}
+
+.empty-state h3 {
+  margin: 12px 0 5px;
+  color: #111827;
+}
+
+.empty-state p {
+  color: #64748b;
+  font-size: 13px;
+}
+
+/* ================================
+   RESPONSIVE
+================================ */
+
+@media (max-width: 1100px) {
+
+  .sidebar {
+    width: 220px;
+  }
+
+  .main-content {
+    padding: 25px;
+  }
+
+  .form-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .credential-card {
+    align-items: flex-start;
+  }
+
+}
+
+@media (max-width: 800px) {
+
+  .vault-page {
+    display: block;
+  }
+
+  .sidebar {
+    width: 100%;
+    min-height: auto;
+    position: relative;
+  }
+
+  .sidebar nav {
+    display: flex;
+    overflow-x: auto;
+  }
+
+  .nav-item {
+    white-space: nowrap;
+  }
+
+  .stats {
+    grid-template-columns: 1fr;
+  }
+
+  .saved-header {
+    display: block;
+  }
+
+  .search-input {
+    width: 100%;
+    margin-top: 15px;
+  }
+
+  .search-box {
+    margin-bottom: 18px;
+  }
+
+  .search-box input {
+    width: 100%;
+  }
+
+  .card-actions {
+    width: 100%;
+    flex-wrap: wrap;
+  }
+
+  .card-actions button {
+    flex: 1;
+  }
+
+  .form-actions {
+    flex-wrap: wrap;
+  }
+
+}
+
+@media (max-width: 500px) {
+
+  .main-content {
+    padding: 15px;
+  }
+
+  .topbar {
+    align-items: flex-start;
+    gap: 15px;
+  }
+
+  .topbar h1 {
+    font-size: 23px;
+  }
+
+  .credential-form {
+    padding: 18px;
+  }
+
+  .credential-card {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .credential-logo {
+    width: 42px;
+    height: 42px;
+    min-width: 42px;
+  }
+
+  .card-actions {
+    width: 100%;
+  }
+
+  .card-actions button {
+    flex: 1;
+  }
+
+}

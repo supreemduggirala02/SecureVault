@@ -1,0 +1,210 @@
+package com.securevault.backend.service;
+
+import com.securevault.backend.entity.AuditLog;
+import org.springframework.stereotype.Service;
+
+import com.lowagie.text.Document;
+import com.lowagie.text.Paragraph;
+import com.lowagie.text.Phrase;
+import com.lowagie.text.pdf.PdfPCell;
+import com.lowagie.text.pdf.PdfPTable;
+import com.lowagie.text.pdf.PdfWriter;
+
+import java.io.ByteArrayOutputStream;
+import java.nio.charset.StandardCharsets;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.util.List;
+
+@Service
+public class ReportExportService {
+
+    private static final DateTimeFormatter DATE_FORMAT =
+            DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+
+    /**
+     * Generate CSV report from audit logs.
+     */
+    public byte[] generateCsv(List<AuditLog> logs) {
+
+        StringBuilder csv = new StringBuilder();
+
+        csv.append("ID,User Email,Action,Details,Login Status,IP Address,User Agent,Timestamp\n");
+
+        for (AuditLog log : logs) {
+
+            csv.append(csvValue(log.getId()))
+                    .append(",")
+                    .append(csvValue(log.getUserEmail()))
+                    .append(",")
+                    .append(csvValue(log.getAction()))
+                    .append(",")
+                    .append(csvValue(log.getDetails()))
+                    .append(",")
+                    .append(csvValue(log.getLoginStatus()))
+                    .append(",")
+                    .append(csvValue(log.getIpAddress()))
+                    .append(",")
+                    .append(csvValue(log.getUserAgent()))
+                    .append(",")
+                    .append(csvValue(
+                            log.getTimestamp() == null
+                                    ? null
+                                    : log.getTimestamp().format(DATE_FORMAT)
+                    ))
+                    .append("\n");
+        }
+
+        return csv.toString().getBytes(StandardCharsets.UTF_8);
+    }
+
+    /**
+     * Generate PDF report from audit logs.
+     */
+    public byte[] generatePdf(
+            List<AuditLog> logs,
+            LocalDate startDate,
+            LocalDate endDate) {
+
+        try {
+
+            ByteArrayOutputStream outputStream =
+                    new ByteArrayOutputStream();
+
+            Document document = new Document();
+
+            PdfWriter.getInstance(
+                    document,
+                    outputStream
+            );
+
+            document.open();
+
+            // Title
+            document.add(
+                    new Paragraph("SecureVault Security Audit Report")
+            );
+
+            document.add(
+                    new Paragraph(
+                            "Period: "
+                                    + startDate
+                                    + " to "
+                                    + endDate
+                    )
+            );
+
+            document.add(new Paragraph(" "));
+
+            // Summary
+            document.add(
+                    new Paragraph(
+                            "Total Audit Records: "
+                                    + logs.size()
+                    )
+            );
+
+            document.add(new Paragraph(" "));
+
+            // Table
+            PdfPTable table = new PdfPTable(6);
+
+            table.setWidthPercentage(100);
+
+            table.addCell(new PdfPCell(
+                    new Phrase("ID")
+            ));
+
+            table.addCell(new PdfPCell(
+                    new Phrase("User")
+            ));
+
+            table.addCell(new PdfPCell(
+                    new Phrase("Action")
+            ));
+
+            table.addCell(new PdfPCell(
+                    new Phrase("Status")
+            ));
+
+            table.addCell(new PdfPCell(
+                    new Phrase("IP Address")
+            ));
+
+            table.addCell(new PdfPCell(
+                    new Phrase("Timestamp")
+            ));
+
+            for (AuditLog log : logs) {
+
+                table.addCell(
+                        safeString(log.getId())
+                );
+
+                table.addCell(
+                        safeString(log.getUserEmail())
+                );
+
+                table.addCell(
+                        safeString(log.getAction())
+                );
+
+                table.addCell(
+                        safeString(log.getLoginStatus())
+                );
+
+                table.addCell(
+                        safeString(log.getIpAddress())
+                );
+
+                table.addCell(
+                        log.getTimestamp() == null
+                                ? ""
+                                : log.getTimestamp()
+                                    .format(DATE_FORMAT)
+                );
+            }
+
+            document.add(table);
+
+            document.add(new Paragraph(" "));
+
+            document.add(
+                    new Paragraph(
+                            "Generated by SecureVault"
+                    )
+            );
+
+            document.close();
+
+            return outputStream.toByteArray();
+
+        } catch (Exception e) {
+
+            throw new RuntimeException(
+                    "Failed to generate PDF report",
+                    e
+            );
+        }
+    }
+
+    private String csvValue(Object value) {
+
+        if (value == null) {
+            return "";
+        }
+
+        String text = String.valueOf(value);
+
+        text = text.replace("\"", "\"\"");
+
+        return "\"" + text + "\"";
+    }
+
+    private String safeString(Object value) {
+
+        return value == null
+                ? ""
+                : String.valueOf(value);
+    }
+}
